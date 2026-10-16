@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>汇报基本功 · 4周弹性训练工具</title>
+<title>汇报基本功 + AI 办公应用 · 弹性训练工具</title>
 <style>
   :root{
     --navy:#1a3a5c;
@@ -212,6 +212,135 @@
     width:40px;height:40px;border-radius:8px;border:none;cursor:pointer;
     background:var(--navy);color:#fff;font-size:20px;
   }
+  /* ===== AI 办公应用板块样式 ===== */
+  .sidebar .nav-group{
+    padding:14px 20px 6px;font-size:11px;color:rgba(255,255,255,.45);
+    letter-spacing:1px;font-weight:600;
+  }
+  .sidebar .nav-list a.ai-item .n-num{background:rgba(22,163,74,.35);}
+  .sidebar .nav-list a.ai-item.active{background:rgba(22,163,74,.2);border-left-color:#16a34a;}
+  .sidebar .nav-list a.ai-item.active .n-num{background:#16a34a;color:#fff;}
+  .ai-tag{
+    display:inline-block;background:#16a34a;color:#fff;
+    padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-left:8px;
+    vertical-align:middle;
+  }
+  .badge-ai{background:rgba(22,163,74,.2)!important;border-color:#16a34a!important;color:#7dd3a0!important;}
+  .kpi-card.ai{background:#eefaf1;border-color:#c6f0d3;}
+  .kpi-card.ai .value{color:var(--green);}
+  .filter-bar{
+    display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    background:#f7f9fc;border:1px solid var(--border);border-radius:8px;
+    padding:12px 14px;margin-bottom:16px;
+  }
+  .filter-bar .fg{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .filter-bar .fg>span{font-size:12px;color:var(--gray-text);}
+  button.fchip{
+    border:1px solid var(--border);background:#fff;color:var(--gray-text);
+    border-radius:16px;padding:4px 12px;font-size:12px;cursor:pointer;
+    font-family:inherit;transition:all .15s;
+  }
+  button.fchip:hover{border-color:var(--navy);}
+  button.fchip.on{background:var(--navy);border-color:var(--navy);color:#fff;}
+  button.fchip.on.ai{background:var(--green);border-color:var(--green);}
+  input.ai-search{
+    border:1px solid var(--border);border-radius:6px;padding:6px 12px;
+    font-size:12.5px;font-family:inherit;min-width:200px;margin-left:auto;
+  }
+  .stat-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px;}
+  .stat-box{
+    background:#f0f5fa;border-radius:8px;padding:10px 8px;text-align:center;
+  }
+  .stat-box b{display:block;font-size:20px;color:var(--navy);font-weight:700;}
+  .stat-box span{font-size:11px;color:var(--gray-text);}
+  .cm-card{
+    border:1px solid var(--border);border-radius:10px;padding:16px;
+    margin-bottom:12px;background:#fff;transition:box-shadow .2s,border-color .2s;
+    cursor:pointer;
+  }
+  .cm-card:hover{border-color:#c8d8e8;box-shadow:0 2px 8px rgba(26,58,92,.08);}
+  .cm-card.cn{border-left:4px solid var(--navy);}
+  .cm-card.intl{border-left:4px solid var(--green);}
+  .cm-name{font-size:15px;font-weight:600;color:var(--navy);}
+  .cm-title{
+    color:var(--navy);text-decoration:none;font-weight:600;
+    border-bottom:1px solid transparent;transition:all .15s;
+  }
+  .cm-title:hover{color:var(--gold);border-bottom-color:var(--gold);}
+  .cm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+  .cm-link{
+    display:inline-block;font-size:12.5px;color:var(--navy);text-decoration:none;
+    border:1px solid #c8d8e8;border-radius:6px;padding:6px 16px;
+    background:#fff;font-weight:500;transition:all .15s;
+  }
+  .cm-link:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .cm-link.primary{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .cm-link.primary:hover{background:var(--gold);border-color:var(--gold);color:#fff;}
+  .cm-prov{font-size:12.5px;color:var(--gray-text);margin-top:2px;}
+  .cm-tags{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0;}
+  .ctag{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap;}
+  .ctag.plat{background:#eef2f7;color:var(--gray-text);}
+  .ctag.lv{background:#eaf1f9;color:var(--navy);}
+  .ctag.cn{background:#eefaf1;color:var(--green);}
+  .ctag.free{background:#eefaf1;color:var(--green);}
+  .ctag.audit{background:#fef6e7;color:var(--amber);}
+  .cm-hl{margin:6px 0 0;padding-left:18px;font-size:13px;color:#3d4a5a;}
+  .cm-hl li{margin-bottom:3px;}
+  .cm-aud{font-size:12.5px;color:var(--gray-text);margin-top:9px;padding-top:9px;border-top:1px dashed var(--border);}
+  .cm-aud b{color:#2d3748;font-weight:600;}
+  .cm-note{font-size:12.5px;color:var(--amber);background:#fffbeb;border-radius:6px;padding:5px 10px;margin-top:8px;}
+  .note-warn{
+    background:#fef2f2;border-left:3px solid var(--red);border-radius:6px;
+    padding:10px 14px;font-size:13px;color:#3d4a5a;margin-bottom:10px;
+  }
+  .note-ok{
+    background:#f0fdf4;border-left:3px solid var(--green);border-radius:6px;
+    padding:10px 14px;font-size:13px;color:#3d4a5a;margin-bottom:10px;
+  }
+  .selfcheck{
+    font-size:12.5px;background:#f7f9fc;border:1px dashed var(--border);
+    border-radius:8px;padding:12px 16px;color:var(--gray-text);white-space:pre-wrap;
+    font-family:Consolas,Monaco,monospace;line-height:1.6;
+  }
+  /* 卡片两列网格 */
+  .ai-cards-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+  }
+  .ai-cards-grid .cm-card{margin-bottom:0;display:flex;flex-direction:column;}
+  .ai-cards-grid .cm-actions{margin-top:auto;padding-top:12px;}
+  /* 点击展开的折叠栏 */
+  .collapse-bar{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;
+  }
+  .collapse-btn{
+    display:flex;align-items:center;gap:8px;width:100%;text-align:left;
+    background:#fff;border:1px solid var(--border);border-radius:10px;
+    padding:13px 16px;cursor:pointer;font-family:inherit;transition:all .15s;
+  }
+  .collapse-btn:hover{border-color:var(--navy);background:#f7f9fc;}
+  .collapse-btn[aria-expanded="true"]{
+    border-color:var(--navy);background:var(--navy);color:#fff;
+    border-bottom-left-radius:0;border-bottom-right-radius:0;
+  }
+  .collapse-btn[aria-expanded="true"] .cb-hint{color:rgba(255,255,255,.7);}
+  .collapse-btn .cb-ico{
+    font-size:11px;color:var(--gray-text);transition:transform .2s;flex-shrink:0;
+    display:inline-block;width:12px;
+  }
+  .collapse-btn[aria-expanded="true"] .cb-ico{transform:rotate(90deg);color:#fff;}
+  .collapse-btn .cb-label{font-size:14px;font-weight:600;color:var(--navy);}
+  .collapse-btn[aria-expanded="true"] .cb-label{color:#fff;}
+  .collapse-btn .cb-hint{font-size:12px;color:var(--gray-text);margin-left:auto;}
+  .collapse-panel{
+    display:none;border:1px solid var(--navy);border-top:none;
+    border-radius:0 0 10px 10px;padding:18px;background:#fff;
+  }
+  .collapse-panel.open{display:block;}
+  @media(max-width:900px){
+    .stat-row{grid-template-columns:repeat(3,1fr);}
+    .ai-cards-grid{grid-template-columns:1fr;}
+    .collapse-bar{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
@@ -220,18 +349,20 @@
 
 <!-- ========== HEADER ========== -->
 <div class="header">
-  <h1>汇报基本功 · 4 周弹性训练工具</h1>
-  <div class="sub">WorkBuddy 方案落地 · 全员沟通能力痛点解决</div>
+  <h1>汇报基本功 + AI 办公应用 · 弹性训练工具</h1>
+  <div class="sub">WorkBuddy 方案落地 · 全员沟通能力 + AI 应用能力双提升</div>
   <div class="badge">💬 简约 · 商务 · 零依赖 · 单文件即开即用</div>
+  <div class="badge badge-ai">🤖 新增 AI 办公板块（第 11–16 模块）</div>
 </div>
 
 <!-- ========== SIDEBAR ========== -->
 <aside class="sidebar">
   <div class="brand">
-    <div class="bt">汇报基本功</div>
-    <div class="bs">4 周弹性训练工具</div>
+    <div class="bt">培训训练工具</div>
+    <div class="bs">汇报基本功 + AI 办公应用</div>
   </div>
   <nav class="nav-list" id="navList">
+    <div class="nav-group">模块一 · 汇报基本功</div>
     <a href="#sec-1"><span class="n-num">1</span><span>执行摘要</span></a>
     <a href="#sec-2"><span class="n-num">2</span><span>核心痛点诊断</span></a>
     <a href="#sec-3"><span class="n-num">3</span><span>三层培训体系</span></a>
@@ -242,6 +373,13 @@
     <a href="#sec-8"><span class="n-num">8</span><span>评估 · 成长曲线</span></a>
     <a href="#sec-9"><span class="n-num">9</span><span>学习自查清单</span></a>
     <a href="#sec-10"><span class="n-num">10</span><span>缓解紧张 + 激励</span></a>
+    <div class="nav-group">模块二 · AI 办公应用</div>
+    <a href="#sec-11" class="ai-item"><span class="n-num">11</span><span>AI 板块执行摘要</span></a>
+    <a href="#sec-12" class="ai-item"><span class="n-num">12</span><span>AI 嵌入现有机制</span></a>
+    <a href="#sec-13" class="ai-item"><span class="n-num">13</span><span>课程库（14 门免费）</span></a>
+    <a href="#sec-14" class="ai-item"><span class="n-num">14</span><span>AI 4 周学习路线</span></a>
+    <a href="#sec-15" class="ai-item"><span class="n-num">15</span><span>落地注意事项</span></a>
+    <a href="#sec-16" class="ai-item"><span class="n-num">16</span><span>AI 学习自查清单</span></a>
   </nav>
   <div class="nav-foot">简约 · 商务 · 零依赖</div>
 </aside>
@@ -664,12 +802,330 @@
   </div>
 </div>
 
+<!-- ================= 模块二：AI 办公应用培训 ================= -->
+
+<!-- ========== 11. AI 板块执行摘要 ========== -->
+<div class="section" id="sec-11">
+  <div class="section-title section-title-anchor"><span class="num">11</span>AI 办公应用 · 执行摘要<span class="ai-tag">新增</span></div>
+  <div class="section-body">
+    <div class="kpi-row">
+      <div class="kpi-card ai"><div class="value">4 周</div><div class="label">学习周期</div></div>
+      <div class="kpi-card ai"><div class="value">14 门</div><div class="label">免费课程</div></div>
+      <div class="kpi-card ai"><div class="value">2–3 h</div><div class="label">每周投入</div></div>
+      <div class="kpi-card ai"><div class="value">0 元</div><div class="label">培训成本</div></div>
+    </div>
+    <p style="margin-top:16px;font-size:14px;color:var(--gray-text);">
+      培训方向：<strong style="color:var(--navy)">如何在工作中更好地使用 AI</strong>。以「每周一个主题 + 真实工作产出 + 例会 1 分钟分享」为主线，路线为
+      <strong style="color:var(--green)">认识 AI → 会提问（提示词）→ 办公实操 → 复核合规沉淀</strong>。
+      课程全部来自官方平台的免费资源（国内 6 门 / 国外 8 门，其中完全免费 7 门），不产生任何费用；考核沿用既有随会考核表，评选「AI 提效之星」。
+    </p>
+    <div class="card-grid" style="margin-top:16px;">
+      <div class="mini-card">
+        <h5>🎯 解决什么</h5>
+        <p>员工不会用 / 不敢用 / 用不准 AI；重复性事务耗时长；AI 输出未经复核直接用。</p>
+      </div>
+      <div class="mini-card">
+        <h5>🔗 与模块一关系</h5>
+        <p>完全复用同一套机制：弹性自学、负责人随会记录、不挂钩绩效；可接续在第 5–8 周。</p>
+      </div>
+      <div class="mini-card">
+        <h5>🛡️ 底线要求</h5>
+        <p>敏感数据不得输入公共 AI 工具；AI 输出必须人工复核后方可使用。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 12. AI 嵌入现有机制 ========== -->
+<div class="section" id="sec-12">
+  <div class="section-title section-title-anchor"><span class="num">12</span>AI 板块如何嵌入现有培训机制</div>
+  <div class="section-body">
+    <p style="font-size:14px;color:var(--gray-text);margin-bottom:14px;">
+      不新增任何管理成本，直接复用模块一已跑通的四项机制与随会考核表。
+    </p>
+    <table>
+      <thead>
+        <tr><th style="width:18%">对比项</th><th>汇报基本功培训（已运行）</th><th>AI 办公应用培训（新增）</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>学习周期</strong></td><td>4 周（第 1–4 周）</td><td>4 周（建议第 5–8 周接续，或与模块一并行）</td></tr>
+        <tr><td><strong>学习形式</strong></td><td>线上免费课程 + 作业</td><td>线上免费课程 + 真实工作场景作业</td></tr>
+        <tr><td><strong>演练场景</strong></td><td>例会汇报即演练</td><td>例会「AI 用法 1 分钟分享」即演练</td></tr>
+        <tr><td><strong>考核方式</strong></td><td>随会记录评分卡（5 分制）</td><td>沿用同一张随会考核表，重点维度改为 AI 应用相关</td></tr>
+        <tr><td><strong>负责人投入</strong></td><td>约 10 分钟 / 周</td><td>约 10 分钟 / 周（会前 1 分 + 会中随记 + 会后 2 分补全）</td></tr>
+        <tr><td><strong>额外成本</strong></td><td>0 元（课程全免费）</td><td>0 元（课程全免费，不要求证书）</td></tr>
+        <tr><td><strong>激励方式</strong></td><td>「结构化表达达人」徽章</td><td>「AI 提效之星」评选（仍不挂钩绩效）</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="color:var(--navy);margin:20px 0 10px;">AI 板块的 4 项机制落地要点</h4>
+    <div class="card-grid">
+      <div class="mini-card">
+        <h5>全员覆盖</h5>
+        <p>不分岗位层级。行政、人事、财务、业务均可找到对应场景；工具差异不影响方法论统一。</p>
+      </div>
+      <div class="mini-card">
+        <h5>弹性自学</h5>
+        <p>员工自行安排时间，每周 2–3 小时，按每天 15–20 分钟碎片化推进即可。</p>
+      </div>
+      <div class="mini-card">
+        <h5>负责人牵头</h5>
+        <p>例会随会记录本周「AI 用法分享」，对照 AI 评分卡打分，会后一句点评（1 肯定 + 1 改进）。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 13. AI 课程库 ========== -->
+<div class="section" id="sec-13">
+  <div class="section-title section-title-anchor"><span class="num">13</span>AI 免费课程库（14 门 · 可筛选搜索）</div>
+  <div class="section-body">
+    <p style="font-size:13px;color:var(--gray-text);margin-bottom:14px;">
+      数据于 <strong>2026-10-16</strong> 逐条访问各平台官方课程页核验。「完全免费」= 学习与结课证明均免费；「免费旁听」= 视频教材免费看，付费证书非必需（本次培训不要求证书）。
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-box"><b id="ai-total">0</b><span>课程总数</span></div>
+      <div class="stat-box"><b id="ai-cn">0</b><span>国内平台</span></div>
+      <div class="stat-box"><b id="ai-intl">0</b><span>国外平台</span></div>
+      <div class="stat-box"><b id="ai-free">0</b><span>完全免费</span></div>
+      <div class="stat-box"><b id="ai-audit">0</b><span>免费旁听</span></div>
+      <div class="stat-box"><b id="ai-zh">0</b><span>中文授课</span></div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="fg"><span>来源</span>
+        <button class="fchip on" data-aif="type" data-aiv="all">全部</button>
+        <button class="fchip" data-aif="type" data-aiv="国内">国内</button>
+        <button class="fchip" data-aif="type" data-aiv="国外">国外</button>
+      </div>
+      <div class="fg"><span>层级</span>
+        <button class="fchip on" data-aif="level" data-aiv="all">全部</button>
+        <button class="fchip" data-aif="level" data-aiv="零基础认知">零基础认知</button>
+        <button class="fchip" data-aif="level" data-aiv="办公实操">办公实操</button>
+        <button class="fchip" data-aif="level" data-aiv="提示词进阶">提示词进阶</button>
+      </div>
+      <div class="fg"><span>语言</span>
+        <button class="fchip on" data-aif="lang" data-aiv="all">全部</button>
+        <button class="fchip" data-aif="lang" data-aiv="中文">中文</button>
+        <button class="fchip" data-aif="lang" data-aiv="英文">英文</button>
+      </div>
+      <div class="fg"><span>免费方式</span>
+        <button class="fchip on" data-aif="free" data-aiv="all">全部</button>
+        <button class="fchip" data-aif="free" data-aiv="完全免费">完全免费</button>
+        <button class="fchip" data-aif="free" data-aiv="免费旁听">免费旁听</button>
+      </div>
+      <input class="ai-search" id="ai-q" placeholder="搜索课程 / 平台 / 关键词">
+    </div>
+
+    <div id="ai-cards" class="ai-cards-grid"></div>
+
+    <div class="collapse-bar">
+      <button class="collapse-btn" id="ai-table-toggle" aria-expanded="false">
+        <span class="cb-ico">▶</span><span class="cb-label">📋 表格视图</span>
+        <span class="cb-hint">一览 14 门课的时长 / 语言 / 免费方式</span>
+      </button>
+      <button class="collapse-btn" id="ai-check-toggle" aria-expanded="false">
+        <span class="cb-ico">▶</span><span class="cb-label">✅ 数据自检</span>
+        <span class="cb-hint">校验课程数据完整性与来源</span>
+      </button>
+    </div>
+
+    <div class="collapse-panel" id="panel-ai-table">
+      <p style="font-size:12.5px;color:var(--gray-text);margin-bottom:10px;">点击表格中的课程名可在新标签页打开课程页。</p>
+      <table>
+        <thead>
+          <tr><th>来源</th><th>课程名称（点击打开）</th><th>提供方</th><th>时长</th><th>语言</th><th>免费方式</th><th>层级</th><th style="width:80px">操作</th></tr>
+        </thead>
+        <tbody id="ai-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="collapse-panel" id="panel-ai-check">
+      <button class="fchip on ai" id="ai-check-btn" style="margin-bottom:12px;">运行自检</button>
+      <div class="selfcheck" id="ai-check-out">尚未运行。</div>
+      <h4 style="color:var(--navy);margin:18px 0 10px;font-size:14px;">数据来源（逐条核验）</h4>
+      <ul style="padding-left:20px;font-size:12.5px;color:var(--gray-text);">
+        <li>国家高等教育智慧教育平台：大学信息技术基础（WPS Office+人工智能）、看得见摸得着用得上的 AI 必修课、人工智能基础</li>
+        <li>爱课程 / 国家高等教育智慧教育平台：生成式人工智能应用基础</li>
+        <li>中国大学 MOOC：AI 智能化办公（杭州电子科技大学）</li>
+        <li>国家终身教育智慧教育平台：人工智能专区、岗位胜任力专题</li>
+        <li>Microsoft Learn：课程 AI-3025-A 使用 AI 更智能地工作（简体中文）</li>
+        <li>OpenLearn（Open University × Microsoft）：AI fluency</li>
+        <li>Coursera：AI For Everyone、Generative AI for Everyone、Google AI Essentials、Google Prompting Essentials、Introduction to Generative AI</li>
+        <li>edX：Try It: Prompt Engineering</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 14. AI 4 周学习路线 ========== -->
+<div class="section" id="sec-14">
+  <div class="section-title section-title-anchor"><span class="num">14</span>AI 办公应用 4 周学习路线（点击切换）</div>
+  <div class="section-body">
+    <div class="week-nav">
+      <div class="week-btn active" data-aiweek="1"><div class="wk">WEEK 1</div><div class="wt">认识 AI</div></div>
+      <div class="week-btn" data-aiweek="2"><div class="wk">WEEK 2</div><div class="wt">会提问</div></div>
+      <div class="week-btn" data-aiweek="3"><div class="wk">WEEK 3</div><div class="wt">办公实操</div></div>
+      <div class="week-btn" data-aiweek="4"><div class="wk">WEEK 4</div><div class="wt">复核与合规</div></div>
+    </div>
+
+    <div class="week-panel active" id="aiweek-1">
+      <h4>第 1 周 · 认识 AI：它能做什么、不能做什么</h4>
+      <p style="font-size:13px;color:var(--gray-text);margin-bottom:8px;">目标：建立正确预期，避免「神化 AI」或「不敢用」两种极端。</p>
+      <ul>
+        <li><strong>推荐课：</strong>微软《使用 AI 更智能地工作》（<span style="color:var(--green);">简体中文</span>，1 天，完全免费）｜或 Coursera《Introduction to Generative AI》（1 小时、29 种字幕）｜或《看得见、摸得着、用得上的 AI 必修课》</li>
+        <li><strong>本周作业：</strong>列出自己岗位 3 项可用 AI 帮忙的重复性工作（一页纸即可）</li>
+        <li><strong>例会随会：</strong>1 分钟分享「我发现 AI 能帮我做什么」，负责人随会记录</li>
+      </ul>
+      <div class="template-box">
+        <strong>📝 本周作业模板：</strong><br>
+        岗位：______<br>
+        可交给 AI 的重复性工作：① ______ ② ______ ③ ______<br>
+        目前最耗时的一件事是：______（预计每周省 ___ 小时）
+      </div>
+    </div>
+
+    <div class="week-panel" id="aiweek-2">
+      <h4>第 2 周 · 会提问：把话说明白（提示词）</h4>
+      <p style="font-size:13px;color:var(--gray-text);margin-bottom:8px;">目标：从「随便问」到「会提要求」，输出质量明显提升。</p>
+      <ul>
+        <li><strong>推荐课：</strong>Coursera《Google Prompting Essentials》（最贴近工作场景）｜或《生成式人工智能应用基础》第 3 章 提示词工程｜或 edX《Try It: Prompt Engineering》（1–2 小时速成）</li>
+        <li><strong>本周作业：</strong>用「任务 + 背景 + 要求 + 示例」四要素改写一条自己常用的指令，附改写前后输出对比</li>
+        <li><strong>例会随会：</strong>用改写后的指令，现场生成一份周报提纲</li>
+      </ul>
+      <div class="template-box">
+        <strong>📝 提示词四要素模板：</strong><br>
+        【任务】请帮我 ______<br>
+        【背景】我是 ______，这份内容给 ______ 看<br>
+        【要求】结构 ______、字数 ______、语气 ______<br>
+        【示例】参考这个风格：______
+      </div>
+    </div>
+
+    <div class="week-panel" id="aiweek-3">
+      <h4>第 3 周 · 办公实操：写文档、做表格、做 PPT</h4>
+      <p style="font-size:13px;color:var(--gray-text);margin-bottom:8px;">目标：把 AI 用进真实工作产出，而不是停留在聊天。</p>
+      <ul>
+        <li><strong>推荐课：</strong>《大学信息技术基础（WPS Office + 人工智能）》WPS 三件套 AI 章节｜或《生成式人工智能应用基础》第 6 章 AIGC 赋能办公与管理｜或中国大学 MOOC《AI 智能化办公》</li>
+        <li><strong>本周作业：</strong>用 AI 完成一份真实工作产物（周报 / PPT 大纲 / 表格公式任选其一）</li>
+        <li><strong>例会随会：</strong>展示这份 AI 辅助完成的真实产物，讲清「哪部分是人做的」</li>
+      </ul>
+      <div class="template-box">
+        <strong>📋 办公场景速查（对应课程章节）：</strong><br>
+        □ 文档：AI 生成初稿 → 排版 → 摘要提炼（第 6.1 节）<br>
+        □ 表格：AI 帮写公式 / 数据清洗 / 图表可视化（第 6.2 节）<br>
+        □ PPT：AI 出大纲 → 配页 → 汇报讲稿（第 6.3 节）<br>
+        □ 会议：AI 纪要 → 待办提取（第 6.6 节）
+      </div>
+    </div>
+
+    <div class="week-panel" id="aiweek-4">
+      <h4>第 4 周 · 用好不出事：复核、合规、沉淀</h4>
+      <p style="font-size:13px;color:var(--gray-text);margin-bottom:8px;">目标：建立「AI 输出必须人工复核」的习惯，守住数据与合规底线。</p>
+      <ul>
+        <li><strong>推荐课：</strong>Coursera《Google AI Essentials》中「Use AI Responsibly」｜或 OpenLearn《AI fluency》负责任 AI 章节</li>
+        <li><strong>本周作业：</strong>写一份「我岗位的 AI 使用红线清单」——哪些数据绝对不能输入公共 AI 工具</li>
+        <li><strong>例会随会：</strong>分享红线清单与验收标准，评选「AI 提效之星」</li>
+      </ul>
+      <div class="template-box">
+        <strong>🛡️ 红线清单模板：</strong><br>
+        绝对不能输入公共 AI 工具的数据：□ 客户信息 □ 员工薪资 □ 合同报价 □ 未公开财务数据 □ 其他 ______<br>
+        AI 输出的复核方式：______（谁复核 / 怎么核对）<br>
+        我的岗位可放心交给 AI 的任务：______
+      </div>
+    </div>
+
+    <h4 style="color:var(--navy);margin:20px 0 10px;">AI 板块每周考核重点（对应模块一随会考核表）</h4>
+    <table>
+      <thead>
+        <tr><th>周次</th><th>考核主题</th><th>核心考核维度</th><th>评分（5 分制）</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>第 1 周</strong></td><td>认识 AI</td><td>能说清 AI 在自身岗位的应用点；对能力边界有清醒判断</td><td>1–5 分</td></tr>
+        <tr><td><strong>第 2 周</strong></td><td>提示词</td><td>指令含任务 / 背景 / 要求三要素；输出质量明显优于随意提问</td><td>1–5 分</td></tr>
+        <tr><td><strong>第 3 周</strong></td><td>办公实操</td><td>产出真实工作成果；能讲清「哪部分是人做的」</td><td>1–5 分</td></tr>
+        <tr><td><strong>第 4 周</strong></td><td>复核与合规</td><td>有复核动作；能说出本岗位数据红线</td><td>1–5 分</td></tr>
+      </tbody>
+    </table>
+    <p class="rating-note" style="margin-top:8px;">📌 与模块一完全一致：未涉及的维度记 "—"，不计入当周总分。评分仅作「AI 提效之星」评选依据，不挂钩绩效。</p>
+  </div>
+</div>
+
+<!-- ========== 15. AI 落地注意事项 ========== -->
+<div class="section" id="sec-15">
+  <div class="section-title section-title-anchor"><span class="num">15</span>AI 板块落地注意事项</div>
+  <div class="section-body">
+    <div class="note-warn">
+      <strong>免费旁听 ≠ 免费证书：</strong>Coursera / edX 的视频与教材可免费看，结课证书通常需付费（约 49 美元）。本次培训<strong>不要求证书</strong>，只看作业与随会演练，避免产生任何费用。
+    </div>
+    <div class="note-warn">
+      <strong>数据安全红线：</strong>客户信息、员工薪资、合同报价、未公开财务数据等敏感内容，<strong>不得</strong>输入公共 AI 工具。建议在第 4 周形成书面的部门红线清单，作为长期制度。
+    </div>
+    <div class="note-warn">
+      <strong>英文课的语言门槛：</strong>不擅长英文的同事优先选中文课（微软中文课、国家智慧教育平台、中国大学 MOOC）。选英文课时开启字幕：Coursera 播放器右下角「CC」按钮可切中文字幕，edX 同理。
+    </div>
+    <div class="note-ok">
+      <strong>账号建议：</strong>国内平台（国家智慧教育平台、中国大学 MOOC）手机号注册即可；Coursera / edX / Microsoft Learn 建议统一使用公司邮箱注册，便于后续统计各部门学习人数。
+    </div>
+    <div class="note-ok">
+      <strong>与模块一的关系：</strong>AI 板块可直接接续在「汇报基本功培训」之后（第 5–8 周），两者共用同一张随会考核表与同一套负责人流程，不新增管理负担。
+    </div>
+    <div class="note-ok">
+      <strong>工具不统一不影响学习：</strong>公司未统一采购 AI 工具时，员工可先用各平台免费额度（如主流大模型网页版）练习方法论；课程讲授的是通用提示词方法与场景，不绑定具体产品。
+    </div>
+
+    <h4 style="color:var(--navy);margin:20px 0 10px;">建议推进节奏</h4>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="step-label">W1 准备</div>
+        <div>发布课程清单<br>选定中文 / 英文路线</div>
+        <div class="step-time">HR + 负责人</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-label">W2–W5 学习</div>
+        <div>4 周课程自学<br>每周例会分享</div>
+        <div class="step-time">全员 · 2–3h/周</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-label">W5 收口</div>
+        <div>红线清单汇总<br>评选 AI 提效之星</div>
+        <div class="step-time">部门 + HR</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-label">长期</div>
+        <div>案例库沉淀<br>新员工必修</div>
+        <div class="step-time">持续</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 16. AI 学习自查清单 ========== -->
+<div class="section" id="sec-16">
+  <div class="section-title section-title-anchor"><span class="num">16</span>AI 学习自查清单（可勾选 · 实时进度）</div>
+  <div class="section-body">
+    <ul class="checklist" id="ai-checklist">
+      <li data-aiitem="1"><span class="ck-box">✓</span><span class="ck-text">第 1 周：完成 1 门入门课，列出本岗位 3 项可用 AI 的工作</span></li>
+      <li data-aiitem="2"><span class="ck-box">✓</span><span class="ck-text">第 2 周：掌握提示词四要素，产出 1 组改写前后对比</span></li>
+      <li data-aiitem="3"><span class="ck-box">✓</span><span class="ck-text">第 3 周：用 AI 完成 1 份真实工作产物（文档 / 表格 / PPT）</span></li>
+      <li data-aiitem="4"><span class="ck-box">✓</span><span class="ck-text">第 4 周：写出本岗位 AI 使用红线清单（哪些数据不可输入）</span></li>
+      <li data-aiitem="5"><span class="ck-box">✓</span><span class="ck-text">每周例会完成 1 次「AI 用法分享」，连续 4 周</span></li>
+    </ul>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="aiProgressFill"></div></div>
+      <div class="progress-text" id="aiProgressText">已完成 0 / 5</div>
+    </div>
+  </div>
+</div>
+
 <!-- ========== FOOTER ========== -->
+
 <div class="footer">
-  <p>汇报基本功 · 4 周弹性训练工具 &nbsp;|&nbsp; 基于 WorkBuddy 方案 &nbsp;|&nbsp; 简约商务风 · 单文件 HTML</p>
+  <p>培训训练工具 · 模块一：汇报基本功（4 周） &nbsp;|&nbsp; 模块二：AI 办公应用（4 周） &nbsp;|&nbsp; 基于 WorkBuddy 方案 &nbsp;|&nbsp; 简约商务风 · 单文件 HTML</p>
   <p style="margin-top:8px;font-size:11px;">
     <span class="warn">⚠️ 上线前核验提醒：</span>
-    「妙笔生花的秘密——结构化思维与表达」课程链接已按方案设置（higher.smartedu.cn/course/69e7f7246c1cfb58c38cae1b），若平台后续调整 URL 请以智慧教育平台搜索结果为准。其余课程链接均已指向官方确认存在的真实课程页。
+    模块一「妙笔生花的秘密——结构化思维与表达」课程链接已按方案设置（higher.smartedu.cn/course/69e7f7246c1cfb58c38cae1b）；模块二 AI 课程数据于 2026-10-16 逐条访问各平台官方课程页核验，若平台后续调整 URL 请以官方搜索结果为准。
   </p>
 </div>
 
@@ -749,6 +1205,280 @@
   });
   if(menuBtn){
     menuBtn.addEventListener('click',()=>sidebar.classList.toggle('open'));
+  }
+
+  /* ================= 模块二：AI 办公应用 ================= */
+
+  // AI 周次切换
+  document.querySelectorAll('.week-btn[data-aiweek]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.week-btn[data-aiweek]').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('#sec-14 .week-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('aiweek-'+btn.dataset.aiweek).classList.add('active');
+    });
+  });
+
+  // AI 课程数据（2026-10-16 逐条核验）
+  var AI_COURSES = [
+    {name:"大学信息技术基础（WPS Office + 人工智能）",provider:"海南师范大学",platform:"国家高等教育智慧教育平台",type:"国内",level:"办公实操",lang:"中文",langNote:"中文授课",free:"完全免费",dur:"27 周（可按需只学 AI 章节）",
+     hl:["30 万+ 人选课，目前开课中（2026/07/21–2027/01/20）","第 3 章含「大模型平台介绍 + 提示词基础」专章","WPS 文字 / 表格 / 演示三章均配 AI 应用小节（AI 排版、AI 数据分析、AI 配色）"],
+     aud:"全员零基础，尤其日常使用 WPS 的同事",url:"https://higher.smartedu.cn/course/68b8b542a6a0eb0e0b6f8b56",note:"周期长，建议只挑 AI 与 WPS 相关章节学习，不必全学"},
+
+    {name:"看得见、摸得着、用得上的 AI 必修课",provider:"ISC.AI 学苑",platform:"国家高等教育智慧教育平台",type:"国内",level:"零基础认知",lang:"中文",langNote:"中文授课",free:"完全免费",dur:"模块化短训",
+     hl:["模块 2 直接教 AI 浏览器智慧阅读、AI 办公工具，讲工具怎么用","模块 3 剖析职场办公族、创业者等不同人群的真实应用场景","模块 1 由从业者讲清 AI 概念与发展趋势，零基础无压力"],
+     aud:"想快速上手工具、不想学理论的同事",url:"https://higher.smartedu.cn/course/agc3/69b56a1ff74ce762ce35274c?type=training"},
+
+    {name:"生成式人工智能应用基础",provider:"爱课程 / 国家高等教育智慧教育平台",platform:"国家高等教育智慧教育平台",type:"国内",level:"办公实操",lang:"中文",langNote:"中文授课",free:"完全免费",dur:"9 章",
+     hl:["第 3 章提示词工程：创作流程、战略思想、战术技巧、调优方法全覆盖","第 6 章 AIGC 赋能办公与管理：文档自动化、图表可视化、PPT 与报告生成、思维导图、智能会议、数据分析决策","含伦理与政策法规内容，适合建立使用规范"],
+     aud:"文秘、行政、人事、财务等事务性岗位",url:"https://www.chinaooc.com.cn/course/agc3/69b56a1ff74ce762ce35271c?type=training",note:"办公场景章节最完整，建议作为第 3 周主课"},
+
+    {name:"AI 智能化办公",provider:"杭州电子科技大学",platform:"中国大学 MOOC",type:"国内",level:"办公实操",lang:"中文",langNote:"中文授课",free:"免费旁听",dur:"16 周 · 3–5 小时/周",
+     hl:["WPS AI 全流程：智能化文档生成、表格处理、演示文稿制作","含 PDF、思维导图、流程图、海报等日常办公场景","第 6 章讲生成式 AI 概述与社会伦理、知识产权"],
+     aud:"深度使用 WPS 的岗位，想系统补 AI 办公能力",url:"https://www.icourse163.org/course/HDU-1474206165",note:"课程视频可免费学习，认证证书需付费（本次培训不需要）"},
+
+    {name:"人工智能基础",provider:"合肥工业大学",platform:"国家高等教育智慧教育平台",type:"国内",level:"零基础认知",lang:"中文",langNote:"中文授课",free:"完全免费",dur:"5 周",
+     hl:["明确面向「非计算机专业」，不要求任何技术背景","第 3 部分「常用大模型工具」：提示词工程、AI 协同、AI 辅助办公","含生成式 AI 使用指南：隐私保护、数据安全、学术诚信"],
+     aud:"完全没接触过 AI、希望系统打底的同事",url:"https://higher.smartedu.cn/course/69b9c1c395df98bb27eb662d",note:"本期已于 2026/08/31 结课，需关注下一期开课时间或查看课程资料"},
+
+    {name:"人工智能专区 · 岗位胜任力专题",provider:"教育部 / 国家开放大学",platform:"国家终身教育智慧教育平台",type:"国内",level:"零基础认知",lang:"中文",langNote:"中文授课",free:"完全免费",dur:"短课为主，可按门选学",
+     hl:["平台新设人工智能专区，含「人工智能入门」「智能体概述及搭建」等课程","另有岗位胜任力专题，职场技能类课程最受欢迎","短课为主，适合每天 15–20 分钟碎片化学习"],
+     aud:"时间零碎、无法固定时段学习的同事",url:"https://lifelong.smartedu.cn/",note:"专区课程会持续更新，需进入平台后按「人工智能」检索当期课程"},
+
+    {name:"使用 AI 更智能地工作（AI-3025-A）",provider:"Microsoft",platform:"Microsoft Learn",type:"国外",level:"零基础认知",lang:"中文",langNote:"简体中文（另有多语种）",free:"完全免费",dur:"1 天",
+     hl:["微软官方课程，页面明确「无需任何 AI 经验或技术背景」","面向业务用户：AI 是什么、AI 智能体如何承担多步骤任务","教如何带着判断力审阅 AI 生成内容，避免照单全收"],
+     aud:"全员，尤其不擅长英文的同事（唯一简体中文的国外官方课）",url:"https://learn.microsoft.com/zh-cn/training/courses/ai-3025/"},
+
+    {name:"AI fluency",provider:"The Open University × Microsoft",platform:"OpenLearn",type:"国外",level:"办公实操",lang:"英文",langNote:"英文（可用浏览器翻译）",free:"完全免费",dur:"5 小时 · 7 个单元",
+     hl:["完全免费，完成可得免费参与声明（statement of participation）","从 AI 基础 → 生成式 AI → 负责任使用 → Copilot 实操，顺序设计合理","实操部分覆盖写邮件、时间管理、分析图片与文档等真实办公任务"],
+     aud:"公司使用 Office / Microsoft 365 的同事",url:"https://www.open.edu/openlearn/course/view.php?id=31628"},
+
+    {name:"AI For Everyone",provider:"DeepLearning.AI（Andrew Ng）",platform:"Coursera",type:"国外",level:"零基础认知",lang:"英文",langNote:"英文 + 多语字幕（支持中文字幕）",free:"免费旁听",dur:"约 6 小时 · 4 模块",
+     hl:["非技术人员的 AI 第一课，讲清 AI 能做什么、不能做什么","第 3 模块「如何在公司里建设 AI」、第 4 模块「AI 与社会」（伦理）","学完能和技术同事说上话，知道怎么提需求"],
+     aud:"需要理解 AI 价值、与技术人员协作的骨干与管理者",url:"https://www.coursera.org/learn/ai-for-everyone"},
+
+    {name:"Generative AI for Everyone",provider:"DeepLearning.AI（Andrew Ng）",platform:"Coursera",type:"国外",level:"零基础认知",lang:"英文",langNote:"英文 + 多语字幕（支持中文字幕）",free:"免费旁听",dur:"约 6 小时 · 3 模块",
+     hl:["讲清大模型原理但不需要数学，解释为什么会「胡编乱造」（幻觉）","含动手练习：用生成式 AI 处理日常工作、提示词实操技巧","第 3 模块讲生成式 AI 在业务与社会中的机会与风险"],
+     aud:"已经在用 ChatGPT 类工具、想用得更稳的同事",url:"https://www.coursera.org/learn/generative-ai-for-everyone"},
+
+    {name:"Google AI Essentials",provider:"Google",platform:"Coursera",type:"国外",level:"办公实操",lang:"英文",langNote:"英文 + 17 种语言字幕",free:"免费旁听",dur:"不到 10 小时 · 5 门课",
+     hl:["「用 AI 工具提升效率」模块直接对应职场 productivity","「提示词的艺术」讲 few-shot 等具体技巧","单独设「负责任使用 AI」模块：偏见、隐私与安全风险"],
+     aud:"想系统提升办公效率的全体同事",url:"https://www.coursera.org/learn/google-ai-essentials"},
+
+    {name:"Google Prompting Essentials",provider:"Google",platform:"Coursera",type:"国外",level:"提示词进阶",lang:"英文",langNote:"英文 + 12 种语言字幕",free:"免费旁听",dur:"不到 10 小时 · 4 门课",
+     hl:["5 步写提示词：任务 + 背景 + 参考 + 评估 + 迭代","直接对应写邮件、头脑风暴、建表与追踪表、总结长文档","含「加速数据分析与演示文稿制作」专项课"],
+     aud:"已经会问 AI 但觉得「答得不准」的同事",url:"https://www.coursera.org/learn/google-prompting-essentials",note:"最贴近「工作中用 AI」的一门，建议第 2 周主课"},
+
+    {name:"Introduction to Generative AI",provider:"Google Cloud",platform:"Coursera",type:"国外",level:"零基础认知",lang:"英文",langNote:"英文 + 29 种语言字幕",free:"免费旁听",dur:"1 小时 · 1 模块",
+     hl:["1 小时讲清生成式 AI 是什么、与传统机器学习的区别","178 万人已学，评价极高，适合做「开班第一课」","字幕语言最多（29 种），语言门槛最低"],
+     aud:"全员（作为 AI 板块的导语课）",url:"https://www.coursera.org/learn/introduction-to-generative-ai"},
+
+    {name:"Try It: Prompt Engineering",provider:"edX",platform:"edX",type:"国外",level:"提示词进阶",lang:"英文",langNote:"英文（含多语翻译）",free:"免费旁听",dur:"1 周 · 1–2 小时/周",
+     hl:["最短路径上手，专注「怎么提问才不出错」","教如何用示例和数据喂给 AI，避免 AI 胡编","9000+ 人报名，入门级、无需任何基础"],
+     aud:"时间紧、想先试水提示词的同事",url:"https://www.edx.org/learn/computer-programming/edx-try-it-prompt-engineering"}
+  ];
+
+  var aiState = {type:"all", level:"all", lang:"all", free:"all", q:""};
+
+  function aiMatch(c){
+    if(aiState.type !== "all" && c.type !== aiState.type) return false;
+    if(aiState.level !== "all" && c.level !== aiState.level) return false;
+    if(aiState.lang !== "all" && c.lang !== aiState.lang) return false;
+    if(aiState.free !== "all" && c.free !== aiState.free) return false;
+    if(aiState.q){
+      var s = (c.name + c.provider + c.platform + c.hl.join("") + c.aud).toLowerCase();
+      if(s.indexOf(aiState.q.toLowerCase()) === -1) return false;
+    }
+    return true;
+  }
+  function aiEsc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+  // 复制链接兜底（非 HTTPS / 旧浏览器）
+  function fallbackCopy(text, cb){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      if(cb) cb();
+    }catch(err){
+      window.prompt('请手动复制课程链接：', text);
+      if(cb) cb();
+    }
+  }
+
+  function aiRenderCards(){
+    var list = AI_COURSES.filter(aiMatch);
+    var html = "";
+    list.forEach(function(c){
+      var cls = c.type === "国内" ? "cn" : "intl";
+      var freeCls = c.free === "完全免费" ? "free" : "audit";
+      html += '<div class="cm-card ' + cls + '">';
+      html += '<div class="cm-name"><a class="cm-title" href="' + c.url + '" target="_blank" rel="noopener" title="点击前往课程页">' + aiEsc(c.name) + ' ↗</a></div>';
+      html += '<div class="cm-prov">' + aiEsc(c.provider) + ' · ' + aiEsc(c.platform) + '</div>';
+      html += '<div class="cm-tags">';
+      html += '<span class="ctag plat">' + aiEsc(c.type) + ' · ' + aiEsc(c.platform) + '</span>';
+      html += '<span class="ctag lv">' + aiEsc(c.level) + '</span>';
+      html += '<span class="ctag cn">' + aiEsc(c.langNote) + '</span>';
+      html += '<span class="ctag ' + freeCls + '">' + aiEsc(c.free) + '</span>';
+      html += '<span class="ctag plat">' + aiEsc(c.dur) + '</span>';
+      html += '</div>';
+      html += '<ul class="cm-hl">';
+      c.hl.forEach(function(h){ html += '<li>' + aiEsc(h) + '</li>'; });
+      html += '</ul>';
+      html += '<div class="cm-aud"><b>适合：</b>' + aiEsc(c.aud) + '</div>';
+      if(c.note) html += '<div class="cm-note">提示：' + aiEsc(c.note) + '</div>';
+      html += '<div class="cm-actions">';
+      html += '<a class="cm-link primary" href="' + c.url + '" target="_blank" rel="noopener">前往课程页 →</a>';
+      html += '<a class="cm-link cm-copy" href="javascript:void(0)" data-url="' + aiEsc(c.url) + '">复制链接</a>';
+      html += '</div>';
+      html += '</div>';
+    });
+    if(!list.length) html = '<div class="cm-card">没有符合条件的课程，请调整筛选条件。</div>';
+    var box = document.getElementById("ai-cards");
+    box.innerHTML = html;
+    // 整卡可点击跳转（按钮/链接区域除外，避免重复触发）
+    Array.prototype.forEach.call(box.querySelectorAll('.cm-card'), function(card){
+      var a = card.querySelector('.cm-title');
+      if(!a) return;
+      card.addEventListener('click', function(e){
+        if(e.target.closest('a')) return;
+        window.open(a.href, '_blank', 'noopener');
+      });
+    });
+    // 复制链接
+    Array.prototype.forEach.call(box.querySelectorAll('.cm-copy'), function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var url = btn.getAttribute('data-url');
+        var done = function(){ btn.textContent = '✓ 已复制'; setTimeout(function(){ btn.textContent = '复制链接'; }, 1500); };
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(url).then(done, function(){ fallbackCopy(url, done); });
+        } else {
+          fallbackCopy(url, done);
+        }
+      });
+    });
+  }
+
+  function aiRenderTable(){
+    var list = AI_COURSES.filter(aiMatch);
+    var html = "";
+    list.forEach(function(c){
+      html += '<tr><td>' + aiEsc(c.type) + '</td>';
+      html += '<td><a href="' + c.url + '" target="_blank" rel="noopener" class="course-link">' + aiEsc(c.name) + ' ↗</a></td>';
+      html += '<td>' + aiEsc(c.provider) + '</td><td>' + aiEsc(c.dur) + '</td>';
+      html += '<td>' + aiEsc(c.langNote) + '</td><td>' + aiEsc(c.free) + '</td>';
+      html += '<td>' + aiEsc(c.level) + '</td>';
+      html += '<td style="text-align:center;white-space:nowrap;"><a href="' + c.url + '" target="_blank" rel="noopener" class="cm-link" style="padding:4px 12px;font-size:12px;">前往</a></td></tr>';
+    });
+    document.getElementById("ai-tbody").innerHTML = html;
+  }
+
+  function aiStats(){
+    var t = AI_COURSES.length;
+    var cn = AI_COURSES.filter(function(c){return c.type==="国内";}).length;
+    var free = AI_COURSES.filter(function(c){return c.free==="完全免费";}).length;
+    var zh = AI_COURSES.filter(function(c){return c.lang==="中文";}).length;
+    document.getElementById("ai-total").textContent = t;
+    document.getElementById("ai-cn").textContent = cn;
+    document.getElementById("ai-intl").textContent = t - cn;
+    document.getElementById("ai-free").textContent = free;
+    document.getElementById("ai-audit").textContent = t - free;
+    document.getElementById("ai-zh").textContent = zh;
+  }
+
+  function aiSelfCheck(){
+    var out = [];
+    var need = ["name","provider","platform","type","level","lang","free","dur","aud","url"];
+    var bad = 0;
+    AI_COURSES.forEach(function(c, i){
+      need.forEach(function(k){
+        if(!c[k] || String(c[k]).trim() === ""){ out.push("✗ 第 " + (i+1) + " 门课缺少字段：" + k); bad++; }
+      });
+      if(!/^https:\/\//.test(c.url)){ out.push("✗ 第 " + (i+1) + " 门课链接格式异常：" + c.name); bad++; }
+      if(c.hl.length < 2){ out.push("✗ 第 " + (i+1) + " 门课亮点不足 2 条：" + c.name); bad++; }
+      if(["国内","国外"].indexOf(c.type) === -1){ out.push("✗ 第 " + (i+1) + " 门课来源取值异常"); bad++; }
+    });
+    var names = {}, dup = 0;
+    AI_COURSES.forEach(function(c){ if(names[c.name]){ dup++; } names[c.name] = 1; });
+    if(dup){ out.push("✗ 存在重复课程名：" + dup + " 处"); bad += dup; }
+    var t = AI_COURSES.length;
+    var cn = AI_COURSES.filter(function(c){return c.type==="国内";}).length;
+    var free = AI_COURSES.filter(function(c){return c.free==="完全免费";}).length;
+    var zh = AI_COURSES.filter(function(c){return c.lang==="中文";}).length;
+    out.unshift("课程总数：" + t + "（国内 " + cn + " / 国外 " + (t-cn) + "）");
+    out.unshift("完全免费：" + free + " 门，免费旁听：" + (t-free) + " 门，中文授课：" + zh + " 门");
+    out.unshift(bad === 0 ? "✓ 自检通过：所有课程字段完整、链接为 https、无重复项。" : "发现 " + bad + " 处问题：");
+    document.getElementById("ai-check-out").textContent = out.join("\n");
+  }
+
+  document.querySelectorAll(".fchip[data-aif]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var f = btn.getAttribute("data-aif");
+      document.querySelectorAll('.fchip[data-aif="' + f + '"]').forEach(function(b){ b.classList.remove("on"); });
+      btn.classList.add("on");
+      aiState[f] = btn.getAttribute("data-aiv");
+      aiRenderCards(); aiRenderTable();
+    });
+  });
+  var aiQ = document.getElementById("ai-q");
+  if(aiQ){
+    aiQ.addEventListener("input", function(e){
+      aiState.q = e.target.value.trim();
+      aiRenderCards(); aiRenderTable();
+    });
+  }
+  var aiCheckBtn = document.getElementById("ai-check-btn");
+  if(aiCheckBtn){ aiCheckBtn.addEventListener("click", aiSelfCheck); }
+
+  // 折叠面板：点击展开 / 收起（两个面板互不干扰，可同时展开）
+  function bindCollapse(btnId, panelId){
+    var btn = document.getElementById(btnId);
+    var panel = document.getElementById(panelId);
+    if(!btn || !panel) return;
+    btn.addEventListener("click", function(){
+      var willOpen = !panel.classList.contains("open");
+      panel.classList.toggle("open", willOpen);
+      btn.setAttribute("aria-expanded", willOpen ? "true" : "false");
+      if(willOpen){
+        panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+      }
+    });
+  }
+  bindCollapse("ai-table-toggle", "panel-ai-table");
+  bindCollapse("ai-check-toggle", "panel-ai-check");
+
+  aiStats(); aiRenderCards(); aiRenderTable(); aiSelfCheck();
+
+  // AI 自查清单进度
+  var AI_STORAGE_KEY = 'wb_ai_checklist_v1';
+  var aiList = document.getElementById("ai-checklist");
+  var aiFill = document.getElementById("aiProgressFill");
+  var aiText = document.getElementById("aiProgressText");
+  if(aiList){
+    var aiDone = new Set(JSON.parse(localStorage.getItem(AI_STORAGE_KEY) || '[]'));
+    var aiRender = function(){
+      Array.prototype.forEach.call(aiList.children, function(li){
+        li.classList.toggle('done', aiDone.has(li.dataset.aiitem));
+      });
+      aiFill.style.width = (aiDone.size / 5 * 100) + '%';
+      aiText.textContent = '已完成 ' + aiDone.size + ' / 5';
+      localStorage.setItem(AI_STORAGE_KEY, JSON.stringify(Array.from(aiDone)));
+    };
+    aiList.addEventListener('click', function(e){
+      var li = e.target.closest('li');
+      if(!li) return;
+      var id = li.dataset.aiitem;
+      if(aiDone.has(id)){ aiDone.delete(id); } else { aiDone.add(id); }
+      aiRender();
+    });
+    aiRender();
   }
 </script>
 
